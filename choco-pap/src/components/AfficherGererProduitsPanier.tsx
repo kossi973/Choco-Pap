@@ -27,7 +27,7 @@ export function AfficherGererProduitsPanier() {
                             X
                         </button>
                     </div>                   
-                    <img className="border-2 border-orange-400" src={(image).substring(1)} alt={title} />
+                    <img className="border-2 border-orange-400 h-4/6" src={(image).substring(1)} alt={title} />
                 </div>
                 <div className="ml-16">
                     <p className='font-bold text-xl text-yellow-100 '>

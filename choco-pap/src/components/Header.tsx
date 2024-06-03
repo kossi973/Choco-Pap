@@ -35,7 +35,7 @@ const Header = () => {
                 </div>
                 
                 {isOpen &&
-                    <div className="z-10 text-white text-lg font-bold absolute top-32 h-48 w-full md:w-2/5 bg-amber-600 md:hidden left-0">
+                    <div className="z-10 text-white text-lg font-bold absolute top-32 h-52 w-full md:w-2/5 bg-amber-600/95 md:hidden left-0">
                         <div>
                             <nav className='flex flex-col pl-4' onClick={() => setIsOpen(!isOpen)}>
                                 <Link to={"/"} className='my-6'>Accueil </Link>

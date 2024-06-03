@@ -166,6 +166,7 @@ function Boutique() { // afficher les produits de la boutique
     useEffect(() => {
         // Afficher les produits dont au moins une catégorie est sélectionnée dans le filtre catégories, filtrés en plus par le prix et la note
             // On recherche dans le tableau des catégories de "productsList" au moins un élément du tableau "selectedCategories"
+            // Si le tableau "selectedCategories" est vide alors tous les éléments sont renvoyés et filtrés par le prix et la note.
         setfilteredProducts(productsList.filter((product) => (selectedCategories.length > 0 ? selectedCategories.some((option) => (Object.entries(product.category).map(([ingredient,inclus]) => inclus ? ingredient : null)).includes(option)) : true )
         && (product.price >= prixMin && product.price <= prixMax)
         && (product.note >= noteMin && product.note <= noteMax)))       
@@ -180,7 +181,7 @@ function Boutique() { // afficher les produits de la boutique
                 <div className="sm:flex md:flex-row">                
                     <div className="ml-4 mb-20 text-white"> {/* Afficher le filtre */}
                         <p className="text-sm mb-1">FILTRE</p>
-                        <div className=" border h-fit border-amber-700 border-2 pb-4 w-36">
+                        <div className="border h-fit border-amber-700 border-2 pb-4 w-36">
 
                             {<ToggleFiltersDisplay filtre={"Catégories"} filtreNumber={0} />}
                             <ul>                            
