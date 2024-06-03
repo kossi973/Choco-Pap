@@ -1,0 +1,42 @@
+const filteredProducts = allData.filter(({ tags }) =>
+  filterTags.length > 0
+    ? filterTags.every((filterTag) => tags.some((tag) => tag.slug === filterTag))
+    : true
+);
+
+
+Votre code pour filtrer les produits en fonction des tags semble correct ! Vous utilisez la méthode `.filter()` pour créer un nouveau tableau `filteredProducts` qui contient les produits filtrés en fonction des tags sélectionnés.
+
+Cependant, voici quelques suggestions pour améliorer la lisibilité et la maintenabilité de votre code :
+
+1. **Destructuration des propriétés** : Plutôt que d'accéder à `product.tags.map((tag) => tag.slug)`, vous pouvez déstructurer les propriétés du produit directement dans la fonction de filtrage :
+   ```javascript
+   const filteredProducts = allData.filter(({ tags }) =>
+     filterTags.length > 0
+       ? filterTags.every((filterTag) => tags.some((tag) => tag.slug === filterTag))
+       : true
+   );
+   ```
+
+2. **Utilisation de `some()` au lieu de `includes()`** : La méthode `.some()` vérifie si au moins un élément du tableau satisfait la condition. Cela simplifie la logique de filtrage :
+   ```javascript
+   const filteredProducts = allData.filter(({ tags }) =>
+     filterTags.length > 0
+       ? tags.some((tag) => filterTags.includes(tag.slug))
+       : true
+   );
+   ```
+
+3. **Extraction de la logique de filtrage** : Si vous prévoyez d'utiliser cette logique de filtrage dans plusieurs endroits de votre application, envisagez de la mettre dans une fonction utilitaire réutilisable :
+   ```javascript
+   function filterProductsByTags(products, selectedTags) {
+     return products.filter(({ tags }) =>
+       selectedTags.length > 0
+         ? tags.some((tag) => selectedTags.includes(tag.slug))
+         : true
+     );
+   }
+
+   // Utilisation :
+   const filteredProducts = filterProductsByTags(allData, filterTags);
+   ```
