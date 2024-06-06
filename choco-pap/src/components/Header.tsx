@@ -12,7 +12,7 @@ const Header = () => {
         <div>
             <header className="container-fluid h-32 w-full bg-amber-700 mx-auto flex justify-between items-center px-10">
                 <div>
-                    <img className="h-16" src={logoUrl} alt="logo-Choco" />
+                    <img className="logo-spin h-16" src={logoUrl} alt="logo-Choco" />
                 </div>
                 
                 <nav className='hidden md:inline-flex items-center'>

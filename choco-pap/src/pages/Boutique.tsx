@@ -1,22 +1,41 @@
 import Card, { CardProps } from "../components/ProductCard";
 import { useState, useEffect, ChangeEvent } from 'react';
 
+type ToggleFiltersDisplayProps = {
+    filtre: string;
+    filtreNumber: number;
+};
+
+type SelectCategoriesProps = {
+    id: string;
+    category: string;
+    label: string;
+    check: boolean;
+    onCheck: (id: string, event: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+type SelectFiltersProps = {
+    defaultValue: number;
+    borne: string;
+    onSelect: (borne: string, event: React.ChangeEvent<HTMLSelectElement>) => void;
+};
+
 const categoriesFiltre = [
-    {id:1, category:"tous", label:" Tous", check: true},
-    {id:2, category:"blanc", label:" Chocolat blanc", check: false},
-    {id:3, category:"lait", label:" Chocolat au lait", check: false},
-    {id:4, category:"noir", label:" Chocolat noir", check: false},
-    {id:5, category:"noix", label:" Noix/Noisette", check: false},
-    {id:6, category:"fruit", label:" Fruit", check: false},
-    {id:7, category:"caramel", label:" Caramel", check: false},
-    {id:8, category:"liqueur", label:" Liqueur", check: false},
+    {id:"1", category:"tous", label:" Tous", check: true},
+    {id:"2", category:"blanc", label:" Chocolat blanc", check: false},
+    {id:"3", category:"lait", label:" Chocolat au lait", check: false},
+    {id:"4", category:"noir", label:" Chocolat noir", check: false},
+    {id:"5", category:"noix", label:" Noix/Noisette", check: false},
+    {id:"6", category:"fruit", label:" Fruit", check: false},
+    {id:"7", category:"caramel", label:" Caramel", check: false},
+    {id:"8", category:"liqueur", label:" Liqueur", check: false},
 ];
 
-function SelectPrice({defaultPrice, borne, onSelect}) {  // Afficher la liste des prix
+function SelectPrice({defaultValue, borne, onSelect}: SelectFiltersProps) {  // Afficher la liste des prix
     return (
         <div>
             <span className="ml-2">Prix {borne}</span>
-            <select value={defaultPrice} className="my-1 ml-3 text-black rounded-lg border-2 border-amber-700" onChange={(e) => onSelect(borne, e)}>
+            <select value={defaultValue} className="my-1 ml-3 text-black rounded-lg border-2 border-amber-700" onChange={(e) => onSelect(borne, e)}>
                 <option value={1}>1</option>
                 <option value={5}>5</option>
                 <option value={10}>10</option>
@@ -27,11 +46,11 @@ function SelectPrice({defaultPrice, borne, onSelect}) {  // Afficher la liste de
     );
 }
 
-function SelectNote({defaultNote, borne, onSelect}) {  // Afficher la liste des notes
+function SelectNote({defaultValue, borne, onSelect}: SelectFiltersProps) {  // Afficher la liste des notes
     return (
         <div>
             <span className="ml-2">Note {borne}</span>
-            <select value={defaultNote} className="my-1 ml-3 text-black rounded-lg border-2 border-amber-700" onChange={(e) => onSelect(borne, e)}>
+            <select value={defaultValue} className="my-1 ml-3 text-black rounded-lg border-2 border-amber-700" onChange={(e) => onSelect(borne, e)}>
                 <option value={0}>0</option>
                 <option value={1}>1</option>
                 <option value={2}>2</option>
@@ -43,7 +62,7 @@ function SelectNote({defaultNote, borne, onSelect}) {  // Afficher la liste des 
     );
 }
 
-function SelectCategories({id, category, label, check, onCheck}) { // Afficher les catégories de produits
+function SelectCategories({id, category, label, check, onCheck}: SelectCategoriesProps) { // Afficher les catégories de produits
     return (
         <li className="ml-3 text-sm md:text-md">
             <label>
@@ -62,8 +81,8 @@ function SelectCategories({id, category, label, check, onCheck}) { // Afficher l
 
 //************************************************************************************* */
 function Boutique() { // afficher les produits de la boutique
-    const [productsList, setProductsList] = useState([]);
-    const [filteredProducts, setfilteredProducts] = useState(productsList);
+    const [productsList, setProductsList] = useState<CardProps[]>([]);
+    const [filteredProducts, setfilteredProducts] = useState<CardProps[]>([]);
     const [selectedCategories, setSelectedCategories ] = useState<Array<string>>([]);
     const [optionsFiltre, setOptionsFiltre] = useState(categoriesFiltre);
     const [prixMin, setPrixMin] = useState(1);
@@ -90,7 +109,7 @@ function Boutique() { // afficher les produits de la boutique
         };
     },[])
 
-    function ToggleFiltersDisplay({filtre, filtreNumber}) {
+    function ToggleFiltersDisplay({filtre, filtreNumber}: ToggleFiltersDisplayProps) {
         const toggleItem = () => {
             setIsOpen(prevState => {
                 const newState = [...prevState]; // Create a copy of the array
@@ -111,12 +130,15 @@ function Boutique() { // afficher les produits de la boutique
     useEffect(() => { //importer les données des produits
         fetch('products.json')
             .then((response) => response.json())
-            .then((json) => setProductsList(json))
+            .then((json) => {
+                setProductsList(json);
+                setfilteredProducts(json);                
+            })
             .catch((error) => {alert(error)});
     },[]);
     
     
-    const handleOnCheck = (id: number, event: ChangeEvent<HTMLInputElement>) => { // gérer la sélection des catégories
+    const handleOnCheck = (id: string, event: ChangeEvent<HTMLInputElement>) => { // gérer la sélection des catégories
         const isChecked = event.target.checked;
         const categoryChecked = event.target.value;
         
@@ -135,8 +157,8 @@ function Boutique() { // afficher les produits de la boutique
         }
     }
     
-    const handleOnSelectPrice = (borne: string, event: ChangeEvent<HTMLInputElement>) => { // gérer la sélection des prix
-        const price = event.target.value;
+    const handleOnSelectPrice = (borne: string, event: ChangeEvent<HTMLSelectElement>) => { // gérer la sélection des prix
+        const price = Number(event.target.value);
         
         switch(borne) {
             case "min" :
@@ -149,9 +171,9 @@ function Boutique() { // afficher les produits de la boutique
         }         
     };
     
-    const handleOnSelectNote = (borne: string, event: ChangeEvent<HTMLInputElement>) => { // gérer la sélection des notes
-        const note = event.target.value;
-
+    const handleOnSelectNote = (borne: string, event: ChangeEvent<HTMLSelectElement>) => { // gérer la sélection des notes
+        const note = Number(event.target.value);
+        
         switch(borne) {
             case "min" :
                 setNoteMin(note);
@@ -169,7 +191,7 @@ function Boutique() { // afficher les produits de la boutique
             // Si le tableau "selectedCategories" est vide alors tous les éléments sont renvoyés et filtrés par le prix et la note.
         setfilteredProducts(productsList.filter((product) => (selectedCategories.length > 0 ? selectedCategories.some((option) => (Object.entries(product.category).map(([ingredient,inclus]) => inclus ? ingredient : null)).includes(option)) : true )
         && (product.price >= prixMin && product.price <= prixMax)
-        && (product.note >= noteMin && product.note <= noteMax)))       
+        && (product.note >= noteMin && product.note <= noteMax)))
  
     }, [productsList, selectedCategories, prixMin, prixMax, noteMin, noteMax]);
 
@@ -192,14 +214,14 @@ function Boutique() { // afficher les produits de la boutique
                             
                             {<ToggleFiltersDisplay filtre={"Prix"} filtreNumber={1} />}                                                     
                             <div>                            
-                                { isOpen[1] && <SelectPrice defaultPrice={prixMin} borne={"min"} onSelect={handleOnSelectPrice} />}
-                                { isOpen[1] && <SelectPrice defaultPrice={prixMax} borne={"max"} onSelect={handleOnSelectPrice} />}
+                                { isOpen[1] && <SelectPrice defaultValue={prixMin} borne={"min"} onSelect={handleOnSelectPrice} />}
+                                { isOpen[1] && <SelectPrice defaultValue={prixMax} borne={"max"} onSelect={handleOnSelectPrice} />}
                             </div>
                             
                             {<ToggleFiltersDisplay filtre={"Notes"} filtreNumber={2} />}
                             <div>                            
-                                { isOpen[2] && <SelectNote defaultNote={noteMin} borne={"min"} onSelect={handleOnSelectNote} />}
-                                { isOpen[2] && <SelectNote defaultNote={noteMax} borne={"max"} onSelect={handleOnSelectNote} />}
+                                { isOpen[2] && <SelectNote defaultValue={noteMin} borne={"min"} onSelect={handleOnSelectNote} />}
+                                { isOpen[2] && <SelectNote defaultValue={noteMax} borne={"max"} onSelect={handleOnSelectNote} />}
                             </div>
                         </div>
                     </div>                

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { AfficherGererProduitsPanier } from './AfficherGererProduitsPanier';
 import { AfficherTotalPanier } from './AfficherTotalPanier';
 import { ViderLePanier } from './ViderLePanier';
@@ -6,16 +6,17 @@ import { ViderLePanier } from './ViderLePanier';
 const panierUrl = '/images/panier.png'
 
 const Panier = () => {
-  const dialogRef = useRef();
+  const dialogRef = useRef<HTMLDialogElement | null>(null);
 
   const OuvrirPanier = () => {
-    dialogRef.current.showModal();
+    if (dialogRef && dialogRef.current){      
+      dialogRef.current.showModal();
+    }
   };
 
-  const FermerPanier = () => {
-    dialogRef.current.close();
+  const FermerPanier = () => {    
+      dialogRef?.current?.close();
   };
-
   
   return (
     <>

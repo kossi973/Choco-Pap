@@ -6,12 +6,18 @@ import Boutique from "./pages/Boutique"
 import ProductDetails from "./pages/ProductDetails"
 import { PanierContext } from './config/PanierContext';
 import { useState, useEffect } from 'react';
+import { TypePanier } from "./components/AjouterAuPanier"
 
 function App() {
-  const [panier, setPanier] = useState([]);
+  const [panier, setPanier] = useState<TypePanier[]>([]);
 
   useEffect(() => {  
-      setPanier(JSON.parse(localStorage.getItem("panier")));
+      let panierStocke = localStorage.getItem("panier");
+      if (panierStocke) {
+          setPanier(JSON.parse(panierStocke));
+      } else {
+          setPanier([]);
+      }
   },[]);
 
   return (

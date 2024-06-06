@@ -3,7 +3,7 @@ import { AjouterAuPanier } from "./AjouterAuPanier";
 import { Link } from "react-router-dom";
 
 export interface CardProps {
-    id : number,
+    id : string,
     title : string,
     price : number,
     note : number,
@@ -22,16 +22,17 @@ export interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({...product}) => {
+    const {image, title, price, note} = product;
 
     return (
         <div className='text-white max-w-xs mb-10 mx-5 bg-amber-800 shadow-md shadow-amber-100 rounded-lg overflow-hidden'>
-            <img src={product.image} alt={product.title} className='h-36 w-60' />
+            <img src={image} alt={product.title} className='h-36 w-60' />
             <div className='px-6 py-6'>
                 <div className='font-bold text-lg mb-1 grid justify-center'>
-                    {product.title}
+                    {title}
                 </div>
                 <p className='text-lg font-bold mb-3 grid justify-center'>
-                    {product.price} €
+                    {price} €
                 </p>
                 <div className="text-yellow-200 grid justify-center underline underline-offset-4">
                 <Link to='/pages/productdetails' state={{from:'productcard', product: product}}>
@@ -39,10 +40,10 @@ const Card: React.FC<CardProps> = ({...product}) => {
                 </Link>
                 </div>
                 <p className='text-lg my-3'>
-                    Note: {product.note}
+                    Note: {note}
                 </p>
                 <div className='text-lg border border-white bg-amber-600 grid justify-center shadow-md shadow-amber-100 rounded-lg'>
-                    {<AjouterAuPanier product={product}/>}
+                    {<AjouterAuPanier {...product}/>}
                 </div>               
             </div>
         </div>

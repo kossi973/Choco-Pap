@@ -2,9 +2,15 @@ import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { PanierContext } from '../config/PanierContext';
 import { Link } from "react-router-dom";
+import { TypePanier } from "../components/AjouterAuPanier";
+
 
 function ProductDetails() {
-    const { panier, setPanier } = useContext(PanierContext);
+    const panierContext = useContext(PanierContext);
+    if (!panierContext) {
+        return null;
+    }    
+    const { panier, setPanier } = panierContext;
     const location = useLocation();
     const { product } = location.state;
     const [counter, setCounter] = useState(0);
@@ -13,7 +19,7 @@ function ProductDetails() {
 
     // Synchoniser counter avec la quantité du produit dans le panier
     useEffect(() => {
-        const productInCart = panier.find(item => item.product.id === id);
+        const productInCart = panier.find((item: TypePanier) => item.product.id === id);
         if (productInCart) {
           setCounter(productInCart.quantity);
         } else {setCounter(0)}
@@ -29,11 +35,11 @@ function ProductDetails() {
     function AjoutSelectionAuPanier(count: number) { 
 
             if (count > 0) {
-                const productInCart = panier.find(item => item.product.id === id);
+                const productInCart = panier.find((item: TypePanier) => item.product.id === id);
     
                 if (productInCart) {
                     // Si le produit est déjà présent dans le panier, maj de la quantité avec count
-                    setPanier(panier.map(item => item.product.id === product.id ? {...item, quantity: count} : item));                
+                    setPanier(panier.map((item: TypePanier) => item.product.id === product.id ? {...item, quantity: count} : item));                
                 } else {
                     // Si le produit n'est pas dans le panier, ajoutez-le avec la quantité count
                     setPanier([...panier, {product, quantity: count}]);

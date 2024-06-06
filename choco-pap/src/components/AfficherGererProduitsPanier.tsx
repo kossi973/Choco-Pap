@@ -1,21 +1,24 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { PanierContext } from '../config/PanierContext';
+import { TypePanier } from "./AjouterAuPanier";
 
 export function AfficherGererProduitsPanier() {
-    const { panier, setPanier } = useContext(PanierContext);
+    const panierContext = useContext(PanierContext);
+    if (!panierContext) {
+        return null;
+    }    
+    const { panier, setPanier } = panierContext;
 
-    
     const handleQtyChange = (id: string, count: number) => {
-        setPanier(panier.map(item => item.product.id === id ? (count == -1 && item.quantity > 0 || count == 1 ) ? {...item, quantity: item.quantity + count } : item : item));  
+        setPanier(panier.map((item: TypePanier) => item.product.id === id ? (count == -1 && item.quantity > 0 || count == 1 ) ? {...item, quantity: item.quantity + count } : item : item));  
     };
     
     const SupprimerProduitDuPanier = (id: string) => {
         // Supprimer le produit du panier
-        setPanier(panier.filter(item => item.product.id !== id));
-    }
-    
+        setPanier(panier.filter((item: TypePanier) => item.product.id !== id));
+    }    
 
-    function AfficherProduit({item}){
+    function AfficherProduit(item: TypePanier){
         const {id, image, title, price} = item.product;
         const quantity = item.quantity;
 
@@ -54,7 +57,7 @@ export function AfficherGererProduitsPanier() {
 
     return (       
         <div>
-            {panier.map((item) => AfficherProduit({item}))}
+            {panier.map((item: TypePanier) => AfficherProduit(item))}
         </div>
     );
 }
