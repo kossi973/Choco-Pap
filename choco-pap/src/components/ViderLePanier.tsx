@@ -9,7 +9,7 @@ export function ViderLePanier() {
         return null;
     }
        
-    const { panier, setPanier } = panierContext; 
+    const { setPanier } = panierContext; 
 
     // Vider le panier et le stockage local
     const ReinitDuPanier = () => {

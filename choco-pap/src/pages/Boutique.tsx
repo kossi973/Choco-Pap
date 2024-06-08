@@ -206,10 +206,10 @@ function Boutique() { // afficher les produits de la boutique
                     <div className="ml-4 mb-20 text-white"> {/* Afficher le filtre */}
                         <p className="text-sm mb-1">FILTRE</p>
                         <div className="border h-fit border-amber-700 border-2 pb-4 w-36">
-                            {/* Afficcher les filtres des catégories */}
+                            {/* Afficher les filtres des catégories */}
                             {<ToggleFiltersDisplay filtre={"Catégories"} filtreNumber={0} />}
                             <ul>  
-                                Gérer la sélection des catégories des produits                          
+                                {/* Gérer la sélection des catégories des produits */}
                                 {isOpen[0] && optionsFiltre.map(({id, category, label, check}) => ( 
                                     <SelectCategories key={id} id={id} category={category} label={label} check={check} onCheck={handleOnCheck} />
                                 ))}

@@ -9,7 +9,7 @@ export function AfficherQtePanier() {
         return null;
     }    
         
-    const { panier, setPanier } = panierContext;
+    const { panier } = panierContext;
     
     let quantitePanier;
     // Si le panier contient des produits

@@ -8,7 +8,7 @@ export function AfficherTotalPanier() {
     if (!panierContext) {
         return null;
     }    
-    const { panier, setPanier } = panierContext;
+    const { panier } = panierContext;
         // Calculer le coût total par produit
         const prixProduit = panier.map((item: TypePanier) => Number(item.product.price * item.quantity));      
         // Calculer le coût total en effectuant la somme du coût par produit
