@@ -8,6 +8,7 @@ import { PanierContext } from './config/PanierContext';
 import { useState, useEffect } from 'react';
 import { TypePanier } from "./components/AjouterAuPanier"
 
+// Au démarrage, récupérer le panier du stockage local ou réinitialiser le panier.
 function App() {
   const [panier, setPanier] = useState<TypePanier[]>([]);
 
@@ -20,9 +21,11 @@ function App() {
       }
   },[]);
 
+  // Globaliser le panier à toute l'application
+  //Structurer les pages de l'application
   return (
     <>
-      <PanierContext.Provider value={{ panier, setPanier }}>      
+      <PanierContext.Provider value={{ panier, setPanier }}>     
           <Header />
           <Routes >
               <Route path="/" element={<Home />} />

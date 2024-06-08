@@ -2,6 +2,7 @@
 import { AjouterAuPanier } from "./AjouterAuPanier";
 import { Link } from "react-router-dom";
 
+// Définir la strucuture du produit
 export interface CardProps {
     id : string,
     title : string,
@@ -21,6 +22,7 @@ export interface CardProps {
       ingredients: string,
 }
 
+// Afficher la carte produit
 const Card: React.FC<CardProps> = ({...product}) => {
     const {image, title, price, note} = product;
 
@@ -35,6 +37,7 @@ const Card: React.FC<CardProps> = ({...product}) => {
                     {price} €
                 </p>
                 <div className="text-yellow-200 grid justify-center underline underline-offset-4">
+                {/* Lien vers la page détail produit */}
                 <Link to='/pages/productdetails' state={{from:'productcard', product: product}}>
                     Voir plus
                 </Link>
@@ -42,6 +45,7 @@ const Card: React.FC<CardProps> = ({...product}) => {
                 <p className='text-lg my-3'>
                     Note: {note}
                 </p>
+                {/* Bouton pour ajouter le produit au panier */}
                 <div className='text-lg border border-white bg-amber-600 grid justify-center shadow-md shadow-amber-100 rounded-lg'>
                     {<AjouterAuPanier {...product}/>}
                 </div>               

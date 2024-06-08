@@ -5,6 +5,7 @@ import Panier from './Panier';
 
 const logoUrl = '/images/logo.png';
 
+// Afficher le header 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -14,7 +15,7 @@ const Header = () => {
                 <div>
                     <img className="logo-spin h-16" src={logoUrl} alt="logo-Choco" />
                 </div>
-                
+                {/* Afficher le menu, la quantité de produits dans le panier et le logo du panier */}
                 <nav className='hidden md:inline-flex items-center'>
                     <ul className='flex text-white font-bold text-xl' >
                         <li className='mr-4'><Link to={"/"}>Accueil</Link></li>
@@ -34,6 +35,7 @@ const Header = () => {
                     </button>
                 </div>
                 
+                {/* Afficher le menu smartphone, la quantité de produits dans le panier et le logo du panier */}
                 {isOpen &&
                     <div className="z-10 text-white text-lg font-bold absolute top-32 h-52 w-full md:w-2/5 bg-amber-600/95 md:hidden left-0">
                         <div>

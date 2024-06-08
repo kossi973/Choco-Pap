@@ -2,6 +2,7 @@ const logoFB = '/images/logo-facebook.png'
 const logoInsta = '/images/logo-instagram.jpeg'
 const logoTwitter = '/images/logo-twitter.png'
 
+// Afficher le footer
 function Footer() {
     return (
         <footer className="md:h-32 w-full container-fluid overflow-hidden bg-amber-700">

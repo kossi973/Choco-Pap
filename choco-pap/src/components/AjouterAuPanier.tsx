@@ -7,7 +7,9 @@ export type TypePanier = {
     quantity: number;
   };
 
-export function AjouterAuPanier(product:CardProps) {        
+  // Ajouter un produit au panier
+export function AjouterAuPanier(product:CardProps) {
+    // Vérifier la définition du panier global         
     const panierContext = useContext(PanierContext);
     if (!panierContext) {
         return null;
@@ -26,7 +28,7 @@ export function AjouterAuPanier(product:CardProps) {
         }
     }
  
-           
+    // Stocker le panier dans le localStorage       
     useEffect(() => {
         localStorage.setItem("panier", JSON.stringify(panier));
     },[panier])

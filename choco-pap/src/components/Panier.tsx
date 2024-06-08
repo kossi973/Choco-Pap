@@ -5,15 +5,17 @@ import { ViderLePanier } from './ViderLePanier';
 
 const panierUrl = '/images/panier.png'
 
+// Gérer le panier
 const Panier = () => {
   const dialogRef = useRef<HTMLDialogElement | null>(null);
 
+  // Ouvrir la fenetre modale
   const OuvrirPanier = () => {
     if (dialogRef && dialogRef.current){      
       dialogRef.current.showModal();
     }
   };
-
+  // Fermer la fenetre modale
   const FermerPanier = () => {    
       dialogRef?.current?.close();
   };

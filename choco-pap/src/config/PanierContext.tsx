@@ -1,9 +1,10 @@
 import React from 'react';
-import { ItemType } from '../components/AjouterAuPanier';
+import { TypePanier } from '../components/AjouterAuPanier';
 
+// Définir le type du panier globalisé
 type PanierContextType = {
-  panier: ItemType[];
-  setPanier: React.Dispatch<React.SetStateAction<ItemType[]>>;
+  panier: TypePanier[];
+  setPanier: React.Dispatch<React.SetStateAction<TypePanier[]>>;
 };
 
 export const PanierContext = React.createContext<PanierContextType | undefined>(undefined);
