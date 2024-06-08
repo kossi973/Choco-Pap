@@ -4,8 +4,9 @@ import { PanierContext } from '../config/PanierContext';
 import { Link } from "react-router-dom";
 import { TypePanier } from "../components/AjouterAuPanier";
 
-
+// Afficher les détails d'un produit
 function ProductDetails() {
+    // Vérifier la définition du panier global 
     const panierContext = useContext(PanierContext);
     if (!panierContext) {
         return null;
@@ -26,14 +27,15 @@ function ProductDetails() {
 
       }, [panier]);
 
+    // Augmenter ou diminuer la quantité du produit à mettre dans le panier pour des valeurs >= 0
     const handleCounterChange = (inc: number) => {
         if (inc == -1 && counter > 0 || inc == 1 ){
             setCounter(counter + inc);
         }            
     };
 
-    function AjoutSelectionAuPanier(count: number) { 
-
+    // Ajouter la quantité sélectionnée du produit au panier - remplace la quantité en cours
+    function AjoutSelectionAuPanier(count: number) {
             if (count > 0) {
                 const productInCart = panier.find((item: TypePanier) => item.product.id === id);
     
@@ -44,8 +46,7 @@ function ProductDetails() {
                     // Si le produit n'est pas dans le panier, ajoutez-le avec la quantité count
                     setPanier([...panier, {product, quantity: count}]);
                 }
-            }
-            
+            }            
         }
 
     return (
@@ -54,29 +55,36 @@ function ProductDetails() {
                 <div className="container grid mx-auto px-12 md:w-1/2 md:mt-24" >
                     <div className="flex flex-col-reverse md:flex-row my-14 gap-20">
                         <div className="grid mx-auto" >
+                            {/* Afficher l'image du produit - le point ./xxxxxx dans le chemin doit être supprimé */}
                             <img className="border-2 border-orange-400" src={(image).substring(1)} alt={title} />
                         </div>
                         <div className="grid mx-auto md:w-96" >
+                            {/* Afficher le nom du produit */}
                             <p className='font-bold text-xl md:w-96 mb-2'>
                                 {title}
                             </p>
+                            {/* Afficher le prix unitaires du produit */}
                             <p className='text-lg font-bold mb-2'>
                                 {price} €
                             </p>
+                            {/* Afficher la description du produit */}
                             <p className='text-lg mb-4'>
                                 {description}
                             </p>
                             <div className="md:flex gap-10">
                                 <div className="flex text-xl gap-2">
+                                    {/* Afficher la quantité de produit sélectionnée */}
                                     <div className="px-4 py-2 border-2 font-bold">
                                         {counter}
                                     </div>
+                                    {/* Gérer les commandes ajouter/retirer */}
                                     <div className="grid">
                                         <button onClick={() => handleCounterChange(1)}>▲</button>
                                         <button onClick={() => handleCounterChange(-1)}>▼</button>
                                     </div>
                                 </div>
                                 <div className='text-lg border border-white bg-amber-600 grid justify-center shadow-md shadow-amber-100 rounded-lg md:w-60 mt-10 md:my-0 py-2'>
+                                    {/* Gérer l'ajout du produit au panier */}
                                     <button onClick={() => AjoutSelectionAuPanier(counter)}>
                                         Ajouter au panier
                                     </button>
@@ -85,10 +93,12 @@ function ProductDetails() {
                         </div>
                     </div>
                     <div>
+                        {/* Afficher les ingrédients du produit */}
                         <p className="font-bold text-lg border-b-2 pb-1">Ingrédients</p>
                         <div className="my-2 py-2">
                             {ingredients}
                         </div>
+                        {/* Lien de retour à la boutique */}
                         <div className="mt-8 mb-10 font-bold text-lg text-amber-500">                            
                             <Link to={"/boutique"}>Retour boutique →</Link>
                         </div>

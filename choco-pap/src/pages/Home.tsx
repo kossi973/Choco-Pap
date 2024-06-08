@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import Caroussel from "../components/Caroussel";
 
 function Home() {
+    // Définir les images du caroussel
     let slidesCaroussel = [
         "/images/accueil1.jpg",
         "/images/accueil2.jpg",
@@ -28,7 +29,6 @@ function Home() {
                
             </div>
         </main>
-
     );
 }
 

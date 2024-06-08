@@ -20,6 +20,7 @@ type SelectFiltersProps = {
     onSelect: (borne: string, event: React.ChangeEvent<HTMLSelectElement>) => void;
 };
 
+// Définir les catégories du filtre des produits
 const categoriesFiltre = [
     {id:"1", category:"tous", label:" Tous", check: true},
     {id:"2", category:"blanc", label:" Chocolat blanc", check: false},
@@ -31,7 +32,7 @@ const categoriesFiltre = [
     {id:"8", category:"liqueur", label:" Liqueur", check: false},
 ];
 
-function SelectPrice({defaultValue, borne, onSelect}: SelectFiltersProps) {  // Afficher la liste des prix
+function SelectPrice({defaultValue, borne, onSelect}: SelectFiltersProps) {  // Afficher la liste des prix des bornes min et max du filtre des prix
     return (
         <div>
             <span className="ml-2">Prix {borne}</span>
@@ -46,7 +47,7 @@ function SelectPrice({defaultValue, borne, onSelect}: SelectFiltersProps) {  // 
     );
 }
 
-function SelectNote({defaultValue, borne, onSelect}: SelectFiltersProps) {  // Afficher la liste des notes
+function SelectNote({defaultValue, borne, onSelect}: SelectFiltersProps) {  // Afficher la liste des notes des bornes min et max du filtre des notes 
     return (
         <div>
             <span className="ml-2">Note {borne}</span>
@@ -102,13 +103,14 @@ function Boutique() { // afficher les produits de la boutique
     }
 
     useEffect(() => {
+        // Récupérer l'event de resize de l'écran
         window.addEventListener("resize", InitFiltersDisplay);
         return () => {
             // Clean up the event listener when the component unmounts
             window.removeEventListener("resize", InitFiltersDisplay);
         };
     },[])
-
+    // Gérer la commande d'ouverture/fermeture des sections du filtre
     function ToggleFiltersDisplay({filtre, filtreNumber}: ToggleFiltersDisplayProps) {
         const toggleItem = () => {
             setIsOpen(prevState => {
@@ -137,12 +139,12 @@ function Boutique() { // afficher les produits de la boutique
             .catch((error) => {alert(error)});
     },[]);
     
-    
+    // Gérer les coches et les catégories associées
     const handleOnCheck = (id: string, event: ChangeEvent<HTMLInputElement>) => { // gérer la sélection des catégories
         const isChecked = event.target.checked;
         const categoryChecked = event.target.value;
         
-        if (categoryChecked === "tous" && isChecked) {  // maj des coches           
+        if (categoryChecked === "tous" && isChecked) {  // Quand la coche "Tous" est sélectionnée, les autres sont désactivées           
             setOptionsFiltre(categoriesFiltre);   // reset des filtres        
         } else {
             // gérer les coches - coche "Tous" désactivée quand au moins une autre est sélectionnée
@@ -204,22 +206,25 @@ function Boutique() { // afficher les produits de la boutique
                     <div className="ml-4 mb-20 text-white"> {/* Afficher le filtre */}
                         <p className="text-sm mb-1">FILTRE</p>
                         <div className="border h-fit border-amber-700 border-2 pb-4 w-36">
-
+                            {/* Afficcher les filtres des catégories */}
                             {<ToggleFiltersDisplay filtre={"Catégories"} filtreNumber={0} />}
-                            <ul>                            
-                                {isOpen[0] && optionsFiltre.map(({id, category, label, check}) => ( // Afficher les options du filtre
+                            <ul>  
+                                Gérer la sélection des catégories des produits                          
+                                {isOpen[0] && optionsFiltre.map(({id, category, label, check}) => ( 
                                     <SelectCategories key={id} id={id} category={category} label={label} check={check} onCheck={handleOnCheck} />
                                 ))}
                             </ul>
-                            
+                            {/* Afficher les filtres des prix des produits */}
                             {<ToggleFiltersDisplay filtre={"Prix"} filtreNumber={1} />}                                                     
-                            <div>                            
+                            <div> 
+                                {/* Gérer la sélection des bornes min et max  */}
                                 { isOpen[1] && <SelectPrice defaultValue={prixMin} borne={"min"} onSelect={handleOnSelectPrice} />}
                                 { isOpen[1] && <SelectPrice defaultValue={prixMax} borne={"max"} onSelect={handleOnSelectPrice} />}
                             </div>
-                            
+                            {/* Afficher les filtres des notes des produits */}
                             {<ToggleFiltersDisplay filtre={"Notes"} filtreNumber={2} />}
-                            <div>                            
+                            <div>     
+                                {/* Gérer la sélection des bornes min et max  */}
                                 { isOpen[2] && <SelectNote defaultValue={noteMin} borne={"min"} onSelect={handleOnSelectNote} />}
                                 { isOpen[2] && <SelectNote defaultValue={noteMax} borne={"max"} onSelect={handleOnSelectNote} />}
                             </div>
