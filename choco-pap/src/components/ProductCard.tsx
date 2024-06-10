@@ -46,7 +46,7 @@ const Card: React.FC<CardProps> = ({...product}) => {
                     Note: {note}
                 </p>
                 {/* Bouton pour ajouter le produit au panier */}
-                <div className='text-lg border border-white bg-amber-600 grid justify-center shadow-md shadow-amber-100 rounded-lg'>
+                <div className='text-lg border border-white bg-amber-600 grid justify-center shadow-md shadow-amber-100 rounded-lg hover:ring hover:ring-violet-300 active:shadow-xl active:bg-sky-800'>
                     {<AjouterAuPanier {...product}/>}
                 </div>               
             </div>

@@ -19,7 +19,7 @@ export function ViderLePanier() {
 
   return (
     <button onClick={ReinitDuPanier}>
-        Réinitialiser le panier
+        Vider le panier
     </button>
   );
 }

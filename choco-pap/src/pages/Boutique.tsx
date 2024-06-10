@@ -94,14 +94,24 @@ function Boutique() { // afficher les produits de la boutique
 
     
     function InitFiltersDisplay() { // par défaut, fermer le filtre pour les smartphones et le déployer pour les écrans plus grands
-        const screenSize = window.innerWidth;        
+        const screenSize = window.innerWidth;                
+        
+        // Par défaut ouvrir le filtre sur les grands écrans; fermer sur les smartphones/tablettes
         if (screenSize > 768) {
             setIsOpen(isOpen.map(() => true));
-        } else {            
+        } else {
             setIsOpen(isOpen.map(() => false));
         }
-    }
+    }  
 
+    // Initialiser l'ouverture/fermeture du filtre en fonction de la taille de l'écran
+    useEffect(() => {
+        return(
+            InitFiltersDisplay()
+        )
+    },[])
+
+    // Modifier l'ouverture/fermeture du filtre en fonction de l'évolution de la taille de l'écran
     useEffect(() => {
         // Récupérer l'event de resize de l'écran
         window.addEventListener("resize", InitFiltersDisplay);
@@ -110,6 +120,7 @@ function Boutique() { // afficher les produits de la boutique
             window.removeEventListener("resize", InitFiltersDisplay);
         };
     },[])
+
     // Gérer la commande d'ouverture/fermeture des sections du filtre
     function ToggleFiltersDisplay({filtre, filtreNumber}: ToggleFiltersDisplayProps) {
         const toggleItem = () => {
@@ -164,11 +175,15 @@ function Boutique() { // afficher les produits de la boutique
         
         switch(borne) {
             case "min" :
-                setPrixMin(price);
+                if (price <= prixMax) {
+                    setPrixMin(price);
+                }
                 break;
 
-            case "max" :                
-                setPrixMax(price);
+            case "max" :
+                if (price >= prixMin) {
+                    setPrixMax(price);
+                }
                 break;
         }         
     };
@@ -178,11 +193,15 @@ function Boutique() { // afficher les produits de la boutique
         
         switch(borne) {
             case "min" :
-                setNoteMin(note);
+                if (note <= noteMax) {
+                    setNoteMin(note);
+                }
                 break;
 
             case "max" :
-                setNoteMax(note);
+                if (note >= noteMin) {
+                    setNoteMax(note);
+                }
                 break;
         }         
     };

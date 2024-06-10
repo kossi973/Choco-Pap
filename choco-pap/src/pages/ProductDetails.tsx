@@ -83,7 +83,7 @@ function ProductDetails() {
                                         <button onClick={() => handleCounterChange(-1)}>▼</button>
                                     </div>
                                 </div>
-                                <div className='text-lg border border-white bg-amber-600 grid justify-center shadow-md shadow-amber-100 rounded-lg md:w-60 mt-10 md:my-0 py-2'>
+                                <div className='text-lg border border-white bg-amber-600 grid justify-center shadow-md shadow-amber-100 rounded-lg md:w-60 mt-10 md:my-0 py-2 hover:ring hover:ring-violet-300 active:shadow-xl active:bg-sky-800'>
                                     {/* Gérer l'ajout du produit au panier */}
                                     <button onClick={() => AjoutSelectionAuPanier(counter)}>
                                         Ajouter au panier

@@ -34,10 +34,10 @@ const Panier = () => {
                 <div className='grid justify-center text-2xl my-10 border-t border-t-yellow-600 pt-4 pb-4'>
                     <span className='font-bold text-yellow-100 '>TOTAL : {<AfficherTotalPanier/>} €</span>
                 </div>
-                <div className='grid justify-center w-1/2 mx-auto py-2 px-4 text-xl border rounded-lg bg-red-800/75 shadow-lg shadow-orange-300'>                            
+                <div className='grid justify-center w-1/2 mx-auto py-2 px-4 text-md md:text-xl border rounded-lg bg-red-800/75 shadow-lg shadow-orange-300 hover:ring hover:ring-violet-300 active:shadow-xl active:bg-sky-800'>                            
                     {<ViderLePanier/>}
                 </div>
-                <div className='grid justify-center w-1/2 mx-auto py-2 px-4 text-xl border rounded-lg bg-gray-500/75 mt-12'>
+                <div className='grid justify-center w-1/2 mx-auto py-2 px-4 text-md md:text-xl border rounded-lg bg-gray-500/75 mt-12'>
                     Valider le panier
                 </div>
                 <div className='py-10'>

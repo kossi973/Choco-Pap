@@ -18,8 +18,8 @@ const Header = () => {
                 {/* Afficher le menu, la quantité de produits dans le panier et le logo du panier */}
                 <nav className='hidden md:inline-flex items-center'>
                     <ul className='flex text-white font-bold text-xl' >
-                        <li className='mr-4'><Link to={"/"}>Accueil</Link></li>
-                        <li className='mr-10'><Link to={"/boutique"}>Boutique</Link></li>
+                        <li className='mr-4 active:text-2xl'><Link to={"/"}>Accueil</Link></li>
+                        <li className='mr-10 active:text-2xl'><Link to={"/boutique"}>Boutique</Link></li>
                     </ul>                    
                     <p className='mr-2 font-bold bg-yellow-200 rounded-full px-2'><AfficherQtePanier/></p>
                     {<Panier/>}
@@ -40,8 +40,8 @@ const Header = () => {
                     <div className="z-10 text-white text-lg font-bold absolute top-32 h-52 w-full md:w-2/5 bg-amber-600/95 md:hidden left-0">
                         <div>
                             <nav className='flex flex-col pl-4' onClick={() => setIsOpen(!isOpen)}>
-                                <Link to={"/"} className='my-6'>Accueil </Link>
-                                <Link to={"/boutique"} className='mb-6'>Boutique </Link>
+                                <Link to={"/"} className='my-6 active:text-2xl'>Accueil </Link>
+                                <Link to={"/boutique"} className='mb-6 active:text-2xl'>Boutique </Link>
                             </nav>
                         </div>                                
                         <div className='pl-4 flex gap-4 items-center'>
