@@ -90,36 +90,33 @@ function Boutique() { // afficher les produits de la boutique
     const [prixMax, setPrixMax] = useState(20);    
     const [noteMin, setNoteMin] = useState(0);
     const [noteMax, setNoteMax] = useState(5);
-    const [isOpen, setIsOpen] = useState([true,true,true]);
+    const [isOpen, setIsOpen] = useState([false,false,false]); // Par défaut fermer le filtre sur les smartphones/tablettes
 
     
-    function InitFiltersDisplay() { // par défaut, fermer le filtre pour les smartphones et le déployer pour les écrans plus grands
+    function InitFiltersDisplay() { // par défaut, ouvrir le filtre sur les écrans plus grands
         const screenSize = window.innerWidth;                
         
-        // Par défaut ouvrir le filtre sur les grands écrans; fermer sur les smartphones/tablettes
         if (screenSize > 768) {
             setIsOpen(isOpen.map(() => true));
-        } else {
-            setIsOpen(isOpen.map(() => false));
         }
     }  
 
-    // Initialiser l'ouverture/fermeture du filtre en fonction de la taille de l'écran
+    // // Initialiser l'ouverture/fermeture du filtre en fonction de la taille de l'écran
     useEffect(() => {
         return(
             InitFiltersDisplay()
         )
     },[])
 
-    // Modifier l'ouverture/fermeture du filtre en fonction de l'évolution de la taille de l'écran
-    useEffect(() => {
-        // Récupérer l'event de resize de l'écran
-        window.addEventListener("resize", InitFiltersDisplay);
-        return () => {
-            // Clean up the event listener when the component unmounts
-            window.removeEventListener("resize", InitFiltersDisplay);
-        };
-    },[])
+    // // Modifier l'ouverture/fermeture du filtre en fonction de l'évolution de la taille de l'écran
+    // useEffect(() => {
+    //     // Récupérer l'event de resize de l'écran
+    //     window.addEventListener("resize", InitFiltersDisplay);
+    //     return () => {
+    //         // Clean up the event listener when the component unmounts
+    //         window.removeEventListener("resize", InitFiltersDisplay);
+    //     };
+    // },[])
 
     // Gérer la commande d'ouverture/fermeture des sections du filtre
     function ToggleFiltersDisplay({filtre, filtreNumber}: ToggleFiltersDisplayProps) {
