@@ -1,4 +1,5 @@
-import Card, { CardProps } from "../components/ProductCard";
+import { CardProps } from '../config/PanierContext';
+import Card from '../components/ProductCard';
 import { useState, useEffect, ChangeEvent } from 'react';
 
 type ToggleFiltersDisplayProps = {

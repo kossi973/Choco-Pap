@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { PanierContext } from '../config/PanierContext';
-import { CardProps } from "../components/ProductCard";
+import { CardProps } from "../config/PanierContext";
 
 export type TypePanier = {
     product: CardProps;

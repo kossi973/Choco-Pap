@@ -8,3 +8,23 @@ type PanierContextType = {
 };
 
 export const PanierContext = React.createContext<PanierContextType | undefined>(undefined);
+
+// Définir la structure du produit
+export interface CardProps {
+  id : string,
+  title : string,
+  price : number,
+  note : number,
+  image: string,
+  category: {
+      blanc: boolean,
+      lait: boolean,
+      noir: boolean,
+      caramel: boolean,
+      noix: boolean,
+      fruit: boolean,
+      liqueur: boolean
+    },
+    description: string,
+    ingredients: string,
+}
