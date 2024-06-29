@@ -10,9 +10,9 @@ export function AfficherGererProduitsPanier() {
         return null;
     }    
     const { panier, setPanier } = panierContext;
-    //Augmenter ou diminuer la quantité d'un produit dans le panier pour des valeurs >= 0
+    //Augmenter ou diminuer la quantité d'un produit dans le panier pour des valeurs >= 1
     const handleQtyChange = (id: string, count: number) => {
-        setPanier(panier.map((item: TypePanier) => item.product.id === id ? (count == -1 && item.quantity > 0 || count == 1 ) ? {...item, quantity: item.quantity + count } : item : item));  
+        setPanier(panier.map((item: TypePanier) => item.product.id === id ? (count == -1 && item.quantity > 1 || count == 1 ) ? {...item, quantity: item.quantity + count } : item : item));  
     };
     
     const SupprimerProduitDuPanier = (id: string) => {

@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { AfficherGererProduitsPanier } from './AfficherGererProduitsPanier';
 import { AfficherTotalPanier } from './AfficherTotalPanier';
 import { ViderLePanier } from './ViderLePanier';
+import { ValiderLePanier } from './ValiderLePanier';
 
 const panierUrl = '/images/panier.png'
 
@@ -37,9 +38,7 @@ const Panier = () => {
                 <div className='grid justify-center w-1/2 mx-auto py-2 px-4 text-md md:text-xl border rounded-lg bg-red-800/75 shadow-lg shadow-orange-300 hover:ring hover:ring-violet-300 active:shadow-xl active:bg-sky-800'>                            
                     {<ViderLePanier/>}
                 </div>
-                <div className='grid justify-center w-1/2 mx-auto py-2 px-4 text-md md:text-xl border rounded-lg bg-gray-500/75 mt-12'>
-                    Valider le panier
-                </div>
+                {<ValiderLePanier/>}
                 <div className='py-10'>
                 </div>
             </div>
