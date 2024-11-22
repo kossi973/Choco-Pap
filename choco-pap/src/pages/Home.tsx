@@ -1,13 +1,8 @@
 import { Link } from 'react-router-dom';
-import Caroussel from "../components/Caroussel";
+import CarrousselAutoAR from '../components/CarousselAutoAR';
 
 function Home() {
-    // Définir les images du caroussel
-    let slidesCaroussel = [
-        "/images/accueil1.jpg",
-        "/images/accueil2.jpg",
-        "/images/accueil3.jpg",
-    ]
+
 
     return (
         // page principale CHOCO PAP
@@ -24,7 +19,7 @@ function Home() {
 
                     {/* le caroussel */}
                     <div className='mx-auto mb-48'>
-                        <Caroussel slides={slidesCaroussel} />
+                        <CarrousselAutoAR tempo={2000} />
                     </div>      
                
             </div>
